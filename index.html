@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>3-D Cube</title>
+        <style>
+            body { margin: 0; }
+            canvas { display: block; }
+        </style>
+    </head>
+
+    <body>
+        <script src="js/three.js"></script>
+        <script>
+            
+            // creating the scene, camera, and renderer
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000) ; // FOV, aspect ratio, near, far
+            var renderer = new THREE.WebGLRenderer();
+            
+            // render to the size of the browser window
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild(renderer.domElement); // add the renderer to HTML
+
+
+            var geometry = new THREE.BoxGeometry();
+            var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} ); 
+            var cube = new THREE.Mesh( geometry, material );
+            scene.add( cube ); // adding the cube to the scene
+
+            camera.position.z = 5; // moving the camera upwards
+
+            
+            // animate function to render our scene and camera continuously
+            var animate = function () {
+                requestAnimationFrame( animate ); // has many advantages: will pause if you go to another browser, etc.
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                renderer.render(scene, camera);
+        
+            };
+
+            animate(); // call animate
+
+        </script>
+    </body>
+
+</html>
